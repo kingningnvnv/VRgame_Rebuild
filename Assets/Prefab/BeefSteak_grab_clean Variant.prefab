@@ -3251,6 +3251,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2928662782347690603}
     m_Modifications:
+    - target: {fileID: -7216574356610948393, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
+      propertyPath: m_Size.x
+      value: 3.3552551
+      objectReference: {fileID: 0}
+    - target: {fileID: -7216574356610948393, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.703001
+      objectReference: {fileID: 0}
+    - target: {fileID: -7216574356610948393, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
+      propertyPath: m_Size.z
+      value: 2.3364592
+      objectReference: {fileID: 0}
+    - target: {fileID: -7216574356610948393, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
+      propertyPath: m_Center.x
+      value: 0.26391983
+      objectReference: {fileID: 0}
+    - target: {fileID: -7216574356610948393, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
+      propertyPath: m_Center.y
+      value: 0.41313648
+      objectReference: {fileID: 0}
+    - target: {fileID: -7216574356610948393, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
+      propertyPath: m_Center.z
+      value: -0.00091791153
+      objectReference: {fileID: 0}
     - target: {fileID: 2437705904218638177, guid: f9b9f0c2edf9d604f8819c942936cf6f, type: 3}
       propertyPath: m_Name
       value: PhysicsCollider

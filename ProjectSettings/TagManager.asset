@@ -20,6 +20,7 @@ TagManager:
   - QDSUITextInvertedColor
   - QDSUITextSecondaryInvertedColor
   - Steak
+  - Pan
   layers:
   - Default
   - TransparentFX

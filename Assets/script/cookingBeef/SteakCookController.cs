@@ -77,6 +77,12 @@ public class SteakCookController : MonoBehaviour
 
         UpdateVisualState();
         UpdateSizzleAudio(false);
+
+        SteakManager steakManager = GetComponent<SteakManager>();
+        if (steakManager == null)
+        {
+            gameObject.AddComponent<SteakManager>();
+        }
     }
 
     private void Update()
@@ -224,5 +230,106 @@ public class SteakCookController : MonoBehaviour
         if (front == CookStage.焦 && back == CookStage.焦) return 正焦反焦;
 
         return null;
+    }
+
+    public int GetCookStageValue(CookStage stage)
+    {
+        switch (stage)
+        {
+            case CookStage.生:
+                return 0;
+
+            case CookStage.三:
+                return 1;
+
+            case CookStage.五:
+                return 2;
+
+            case CookStage.熟:
+                return 3;
+
+            case CookStage.焦:
+                return 4;
+
+            default:
+                return 0;
+        }
+    }
+
+    public CookStage GetOverallCookStage()
+    {
+        float average = (GetCookStageValue(frontStage) + GetCookStageValue(backStage)) / 2f;
+        int rounded = Mathf.RoundToInt(average);
+
+        switch (rounded)
+        {
+            case 0:
+                return CookStage.生;
+
+            case 1:
+                return CookStage.三;
+
+            case 2:
+                return CookStage.五;
+
+            case 3:
+                return CookStage.熟;
+
+            case 4:
+                return CookStage.焦;
+
+            default:
+                return CookStage.生;
+        }
+    }
+
+    public float GetDonenessCoefficient()
+    {
+        CookStage overallStage = GetOverallCookStage();
+
+        switch (overallStage)
+        {
+            case CookStage.生:
+            case CookStage.焦:
+                return 0.2f;
+
+            case CookStage.三:
+                return 0.6f;
+
+            case CookStage.五:
+                return 0.8f;
+
+            case CookStage.熟:
+                return 1f;
+
+            default:
+                return 0.2f;
+        }
+    }
+
+    public string GetOverallCookStageText()
+    {
+        CookStage overallStage = GetOverallCookStage();
+
+        switch (overallStage)
+        {
+            case CookStage.生:
+                return "生";
+
+            case CookStage.三:
+                return "三分熟";
+
+            case CookStage.五:
+                return "五分熟";
+
+            case CookStage.熟:
+                return "全熟";
+
+            case CookStage.焦:
+                return "焦";
+
+            default:
+                return "未知";
+        }
     }
 }
