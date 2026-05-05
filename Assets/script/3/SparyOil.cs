@@ -80,7 +80,27 @@ public class SparyOil : MonoBehaviour
     protected virtual void OnPanHit(PanHeatReceiver panHeatReceiver, RaycastHit hit)
     {
         Debug.Log($"喷油命中的物体: {hit.collider.gameObject.name}");
+
+        // 保留你原来的功能：告诉 PanHeatReceiver 当前锅已经有油
         panHeatReceiver.HasOil = true;
+
+        // 新增功能：通知 OilCheck 显示油模型
+        OilCheck oilCheck = hit.collider.GetComponentInParent<OilCheck>();
+
+        if (oilCheck == null)
+        {
+            oilCheck = panHeatReceiver.GetComponentInChildren<OilCheck>();
+        }
+
+        if (oilCheck != null)
+        {
+            oilCheck.AddOil();
+            Debug.Log("OilCheck 已收到喷油信号，油模型已显示。");
+        }
+        else
+        {
+            Debug.LogWarning("喷油成功，但没有在锅对象或子物体中找到 OilCheck 组件。");
+        }
 
         // 例如：在这里播放喷油成功的效果
     }

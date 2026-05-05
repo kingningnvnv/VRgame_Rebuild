@@ -1,28 +1,60 @@
+﻿using UnityEngine;
+
 using UnityEngine;
 
 public class OilCheck : MonoBehaviour
 {
-    PanHeatReceiver pan;
-    GameObject par;
+    private GameObject oilVisual;
+
+    [Header("Oil State")]
+    public bool hasOil = false;
+
     private void Awake()
     {
-        pan = this.GetComponentInParent<PanHeatReceiver>();
-        par = this.transform.GetChild(0).gameObject;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (pan != null)
+        if (transform.childCount > 0)
         {
+            oilVisual = transform.GetChild(0).gameObject;
+        }
 
-            if (pan.IsHeated) 
-            {
-                par.SetActive(true);
-            }
-            else
-            {
-                par.SetActive(false);
-            }
+        HideOil();
+    }
+
+    public void AddOil()
+    {
+        hasOil = true;
+
+        if (oilVisual != null)
+        {
+            oilVisual.SetActive(true);
+        }
+
+        Debug.Log("OilCheck: Oil added.");
+    }
+
+    public void CleanOil()
+    {
+        hasOil = false;
+
+        if (oilVisual != null)
+        {
+            oilVisual.SetActive(false);
+        }
+
+        Debug.Log("OilCheck: Oil cleaned.");
+    }
+
+    public bool HasOil()
+    {
+        return hasOil;
+    }
+
+    private void HideOil()
+    {
+        hasOil = false;
+
+        if (oilVisual != null)
+        {
+            oilVisual.SetActive(false);
         }
     }
 }
