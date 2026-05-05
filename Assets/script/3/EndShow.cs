@@ -11,7 +11,28 @@ public class EndShow : MonoBehaviour
     [Header("评分设置")]
     public Text resultText; // 显示评分结果（分数+原因）的UI文本
 
+    [Header("NPC离开设置")]
+    [Tooltip("可以不拖。如果这里不拖，就使用 NPC 自己脚本里的 LeaveTargetPoint")]
+    public Transform leaveTargetPoint; // NPC 起身后要走向的位置
+
+    [Tooltip("牛排放入评分区域后，NPC 延迟几秒开始起身")]
+    public float minLeaveDelay = 3f;
+
+    [Tooltip("牛排放入评分区域后，NPC 延迟几秒开始起身")]
+    public float maxLeaveDelay = 5f;
+
+    [Tooltip("第一个 NPC，拖挂了 NpcController 的 NPC 本体")]
+    public NpcController npcController;
+
+    [Tooltip("第二个 NPC，拖挂了 NpcController2 的 NPC 本体")]
+    public NpcController2 npcController2;
+
+    [Tooltip("是否只触发一次 NPC 离开")]
+    public bool leaveOnlyOnce = true;
+
     public UnityEvent onShowTrigger;
+
+    private bool hasTriggeredLeave = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,6 +41,8 @@ public class EndShow : MonoBehaviour
 
     private void Trigger(Collider other)
     {
+        if (other == null) return;
+
         SteakManager steakManager = other.GetComponentInParent<SteakManager>();
         if (steakManager == null) return;
 
@@ -38,7 +61,53 @@ public class EndShow : MonoBehaviour
             onShowTrigger.Invoke();
         }
 
-        Debug.Log($"牛排进入触发器，{targetObject.name} 已显示");
+        TriggerNpcLeave();
+
+        if (targetObject != null)
+        {
+            Debug.Log($"牛排进入触发器，{targetObject.name} 已显示，并触发 NPC 离开流程");
+        }
+        else
+        {
+            Debug.Log("牛排进入触发器，已触发评分和 NPC 离开流程");
+        }
+    }
+
+    private void TriggerNpcLeave()
+    {
+        if (leaveOnlyOnce && hasTriggeredLeave)
+        {
+            return;
+        }
+
+        hasTriggeredLeave = true;
+
+        float minDelay = Mathf.Min(minLeaveDelay, maxLeaveDelay);
+        float maxDelay = Mathf.Max(minLeaveDelay, maxLeaveDelay);
+        float leaveDelay = Random.Range(minDelay, maxDelay);
+
+        int callCount = 0;
+
+        if (npcController != null)
+        {
+            npcController.StartLeaveAfterDelay(leaveTargetPoint, leaveDelay);
+            callCount++;
+        }
+
+        if (npcController2 != null)
+        {
+            npcController2.StartLeaveAfterDelay(leaveTargetPoint, leaveDelay);
+            callCount++;
+        }
+
+        if (callCount == 0)
+        {
+            Debug.LogWarning("EndShow 没有拖 NPC，所以评分出现了，但没有 NPC 会起身离开。");
+        }
+        else
+        {
+            Debug.Log($"EndShow 已向 {callCount} 个 NPC 发送起身离开命令，延迟时间：{leaveDelay:F1} 秒。");
+        }
     }
 
     private void CalculateAndShowScore(SteakManager steakManager)
@@ -85,7 +154,7 @@ public class EndShow : MonoBehaviour
         if (steakManager.HasPepper)
         {
             baseScore += 100f / 6f;
-            result.AppendLine("✓Pepper Added");
+            result.AppendLine("✓ Pepper Added");
         }
         else
         {
@@ -116,6 +185,7 @@ public class EndShow : MonoBehaviour
 
         // 获取熟度控制器
         SteakCookController cookController = steakManager.GetComponent<SteakCookController>();
+
         if (cookController == null)
         {
             cookController = steakManager.GetComponentInChildren<SteakCookController>(true);
