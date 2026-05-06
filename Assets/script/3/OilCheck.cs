@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 
-using UnityEngine;
-
 public class OilCheck : MonoBehaviour
 {
-    private GameObject oilVisual;
+    [Header("Oil Visual")]
+    public GameObject oilVisual;
 
     [Header("Oil State")]
     public bool hasOil = false;
 
     private void Awake()
     {
-        if (transform.childCount > 0)
+        if (oilVisual == null)
         {
-            oilVisual = transform.GetChild(0).gameObject;
+            oilVisual = gameObject;
         }
 
         HideOil();
@@ -27,8 +26,6 @@ public class OilCheck : MonoBehaviour
         {
             oilVisual.SetActive(true);
         }
-
-        Debug.Log("OilCheck: Oil added.");
     }
 
     public void CleanOil()
@@ -39,8 +36,6 @@ public class OilCheck : MonoBehaviour
         {
             oilVisual.SetActive(false);
         }
-
-        Debug.Log("OilCheck: Oil cleaned.");
     }
 
     public bool HasOil()
