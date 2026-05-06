@@ -51,7 +51,6 @@ public class SeasoningHit : MonoBehaviour
 
         bool gotFrontFace = TryGetFrontFaceHit(other, out hitPoint, out hitNormal);
 
-        // 找不到正确正面命中时，不要乱吸到背面，直接销毁飞行粒子
         if (!gotFrontFace)
         {
             Destroy(gameObject);
@@ -69,11 +68,11 @@ public class SeasoningHit : MonoBehaviour
         switch (seasoningType)
         {
             case SeasoningType.Salt:
-                steak.HasSalt = true;
+                steak.RegisterCookingStep(SteakCookingStepType.Salt);
                 break;
 
             case SeasoningType.Pepper:
-                steak.HasPepper = true;
+                steak.RegisterCookingStep(SteakCookingStepType.Pepper);
                 break;
         }
     }
@@ -94,7 +93,6 @@ public class SeasoningHit : MonoBehaviour
         Vector3 dir = move.normalized;
         float distance = move.magnitude + 0.03f;
 
-        // 从上一帧位置稍微往后退一点再发射，确保能打到进入的正面
         Vector3 rayStart = previousPosition - dir * 0.005f;
         Ray ray = new Ray(rayStart, dir);
 
@@ -109,8 +107,6 @@ public class SeasoningHit : MonoBehaviour
 
             if (hit.collider != targetCollider) continue;
 
-            // 只接受“迎着粒子飞来方向”的表面
-            // 正确的正面法线应与飞行方向相反，所以 dot 应该 < 0
             float dot = Vector3.Dot(hit.normal, dir);
             if (dot >= 0f) continue;
 
@@ -130,7 +126,7 @@ public class SeasoningHit : MonoBehaviour
     {
         if (stuckVisualPrefab == null)
         {
-            Debug.LogWarning("SeasoningHit: stuckVisualPrefab 未赋值。");
+            Debug.LogWarning("SeasoningHit: stuckVisualPrefab is not assigned.");
             return;
         }
 

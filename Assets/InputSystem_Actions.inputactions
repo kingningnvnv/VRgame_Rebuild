@@ -1000,6 +1000,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PourWater",
+                    "type": "Button",
+                    "id": "cdaecb64-1600-4dc6-a225-f2ca69a4ff57",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1033,6 +1042,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SprayOil",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31c0d1d7-2032-4f63-84ed-7c1d8c0e3558",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PourWater",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

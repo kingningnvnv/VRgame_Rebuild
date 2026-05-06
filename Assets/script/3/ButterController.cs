@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ButterController : MonoBehaviour
 {
-    [Header("黄油融化设置")]
+    [Header("Butter Melting Settings")]
     public float meltDuration = 10f;
     public bool isMelting = false;
 
@@ -37,7 +37,7 @@ public class ButterController : MonoBehaviour
             {
                 if (zone.SteaksInZone[i] != null)
                 {
-                    zone.SteaksInZone[i].HasButter = true;
+                    zone.SteaksInZone[i].RegisterCookingStep(SteakCookingStepType.Butter);
                 }
             }
 

@@ -78,8 +78,7 @@ public class SteakCookController : MonoBehaviour
         UpdateVisualState();
         UpdateSizzleAudio(false);
 
-        SteakManager steakManager = GetComponent<SteakManager>();
-        if (steakManager == null)
+        if (GetComponent<SteakManager>() == null)
         {
             gameObject.AddComponent<SteakManager>();
         }
@@ -232,104 +231,85 @@ public class SteakCookController : MonoBehaviour
         return null;
     }
 
-    public int GetCookStageValue(CookStage stage)
+    public CookStage GetFrontCookStage()
     {
-        switch (stage)
-        {
-            case CookStage.生:
-                return 0;
-
-            case CookStage.三:
-                return 1;
-
-            case CookStage.五:
-                return 2;
-
-            case CookStage.熟:
-                return 3;
-
-            case CookStage.焦:
-                return 4;
-
-            default:
-                return 0;
-        }
+        return frontStage;
     }
 
-    public CookStage GetOverallCookStage()
+    public CookStage GetBackCookStage()
     {
-        float average = (GetCookStageValue(frontStage) + GetCookStageValue(backStage)) / 2f;
-        int rounded = Mathf.RoundToInt(average);
+        return backStage;
+    }
 
-        switch (rounded)
-        {
-            case 0:
-                return CookStage.生;
+    public string GetFrontCookStageText()
+    {
+        return ConvertCookStageToChinese(frontStage);
+    }
 
-            case 1:
-                return CookStage.三;
+    public string GetBackCookStageText()
+    {
+        return ConvertCookStageToChinese(backStage);
+    }
 
-            case 2:
-                return CookStage.五;
+    public float GetFrontDonenessCoefficient()
+    {
+        return GetCookStageCoefficient(frontStage);
+    }
 
-            case 3:
-                return CookStage.熟;
-
-            case 4:
-                return CookStage.焦;
-
-            default:
-                return CookStage.生;
-        }
+    public float GetBackDonenessCoefficient()
+    {
+        return GetCookStageCoefficient(backStage);
     }
 
     public float GetDonenessCoefficient()
     {
-        CookStage overallStage = GetOverallCookStage();
+        float frontCoefficient = GetFrontDonenessCoefficient();
+        float backCoefficient = GetBackDonenessCoefficient();
 
-        switch (overallStage)
-        {
-            case CookStage.生:
-            case CookStage.焦:
-                return 0.2f;
-
-            case CookStage.三:
-                return 0.6f;
-
-            case CookStage.五:
-                return 0.8f;
-
-            case CookStage.熟:
-                return 1f;
-
-            default:
-                return 0.2f;
-        }
+        return (frontCoefficient + backCoefficient) * 0.5f;
     }
 
+    // 为了兼容旧调用，保留这个方法
     public string GetOverallCookStageText()
     {
-        CookStage overallStage = GetOverallCookStage();
+        return $"{GetFrontCookStageText()} / {GetBackCookStageText()}";
+    }
 
-        switch (overallStage)
+    private string ConvertCookStageToChinese(CookStage stage)
+    {
+        switch (stage)
         {
             case CookStage.生:
                 return "生";
-
             case CookStage.三:
                 return "三分熟";
-
             case CookStage.五:
                 return "五分熟";
-
             case CookStage.熟:
                 return "全熟";
-
             case CookStage.焦:
                 return "焦";
-
             default:
-                return "未知";
+                return "未读取";
+        }
+    }
+
+    private float GetCookStageCoefficient(CookStage stage)
+    {
+        switch (stage)
+        {
+            case CookStage.生:
+                return 0.2f;
+            case CookStage.三:
+                return 0.6f;
+            case CookStage.五:
+                return 0.8f;
+            case CookStage.熟:
+                return 1.0f;
+            case CookStage.焦:
+                return 0.2f;
+            default:
+                return 1.0f;
         }
     }
 }

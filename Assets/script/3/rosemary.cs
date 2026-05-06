@@ -25,7 +25,7 @@ public class rosemary : MonoBehaviour
         {
             if (zone.SteaksInZone[i] != null)
             {
-                zone.SteaksInZone[i].HasRosemary = true;
+                zone.SteaksInZone[i].RegisterCookingStep(SteakCookingStepType.Rosemary);
             }
         }
 

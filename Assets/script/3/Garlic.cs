@@ -25,7 +25,7 @@ public class Garlic : MonoBehaviour
         {
             if (zone.SteaksInZone[i] != null)
             {
-                zone.SteaksInZone[i].HasGarlic = true;
+                zone.SteaksInZone[i].RegisterCookingStep(SteakCookingStepType.Garlic);
             }
         }
 
