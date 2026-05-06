@@ -5,12 +5,9 @@ public class PanScrubDetector : MonoBehaviour
     public PanWashState panWashState;
 
     [Header("Scrub Settings")]
-    public float movementThreshold = 0.03f;
+    public float movementThreshold = 0.001f;
     public float progressPerScrub = 0.6f;
     public float scrubCooldown = 0.15f;
-
-    [Header("Debug")]
-    public bool showDebugLog = true;
 
     private Vector3 lastToolPosition;
     private bool hasLastPosition = false;
@@ -24,22 +21,24 @@ public class PanScrubDetector : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        CleaningToolMarker tool = other.GetComponentInParent<CleaningToolMarker>();
+
+        if (tool != null)
+        {
+            hasLastPosition = false;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (panWashState == null) return;
-        if (!panWashState.isInWater) return;
 
         CleaningToolMarker tool = other.GetComponentInParent<CleaningToolMarker>();
         if (tool == null) return;
 
-        if (!tool.IsToolGrabbed())
-        {
-            if (showDebugLog)
-            {
-                Debug.Log("PanScrubDetector: Cleaning tool is not being held.");
-            }
-            return;
-        }
+        if (!panWashState.isInWater) return;
 
         Vector3 currentPosition = other.transform.position;
 
@@ -55,15 +54,11 @@ public class PanScrubDetector : MonoBehaviour
         if (movement >= movementThreshold && Time.time - lastScrubTime >= scrubCooldown)
         {
             float amount = progressPerScrub * tool.cleanPower;
+
             panWashState.AddWashProgress(amount);
 
             lastToolPosition = currentPosition;
             lastScrubTime = Time.time;
-
-            if (showDebugLog)
-            {
-                Debug.Log("PanScrubDetector: Scrubbing detected.");
-            }
         }
     }
 

@@ -4,7 +4,6 @@ public class FaucetController : MonoBehaviour
 {
     [Header("Water")]
     public GameObject waterEffect;
-    public Collider waterWashZone;
 
     [Header("Audio")]
     public AudioSource audioSource;
@@ -31,11 +30,6 @@ public class FaucetController : MonoBehaviour
         if (waterEffect != null)
         {
             waterEffect.SetActive(IsWaterOn);
-        }
-
-        if (waterWashZone != null)
-        {
-            waterWashZone.enabled = IsWaterOn;
         }
 
         if (audioSource != null)
@@ -69,7 +63,5 @@ public class FaucetController : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log("FaucetController: Water state = " + IsWaterOn);
     }
 }

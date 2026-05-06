@@ -2,14 +2,23 @@ using UnityEngine;
 
 public class WaterWashZone : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [Header("Reference")]
+    public FaucetController faucetController;
+
+    private void OnTriggerStay(Collider other)
     {
         PanWashState panWashState = other.GetComponentInParent<PanWashState>();
 
         if (panWashState != null)
         {
-            panWashState.SetInWater(true);
-            Debug.Log("WaterWashZone: Pan entered water zone.");
+            if (faucetController != null && faucetController.IsWaterOn)
+            {
+                panWashState.SetInWater(true);
+            }
+            else
+            {
+                panWashState.SetInWater(false);
+            }
         }
     }
 
@@ -20,7 +29,6 @@ public class WaterWashZone : MonoBehaviour
         if (panWashState != null)
         {
             panWashState.SetInWater(false);
-            Debug.Log("WaterWashZone: Pan exited water zone.");
         }
     }
 }
