@@ -2006,7 +2006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0c5bfb867fb06a46a4bf497ad44c6cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.751
+      value: -5.7663
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f0c5bfb867fb06a46a4bf497ad44c6cc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2085,8 +2085,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cleanPower: 1
-  requireToolGrabbed: 1
-  toolGrabbable: {fileID: 123397265}
+  requireToolGrabbed: 0
+  toolGrabbable: {fileID: 0}
 --- !u!65 &123397257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15044,7 +15044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faucetController: {fileID: 1782269496}
-  switchGrabbable: {fileID: 798959364}
+  switchGrabbable: {fileID: 0}
   toggleCooldown: 1
   showDebugLog: 1
 --- !u!65 &798959360
@@ -17403,23 +17403,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilCheck: {fileID: 1031353718}
-  panGrabbable: {fileID: 907259842}
-  isInWater: 1
+  panGrabbable: {fileID: 0}
+  isInWater: 0
   washProgress: 0
   requiredWashProgress: 5
-  requirePanGrabbed: 0
+  requirePanGrabbed: 1
   showDebugLog: 1
---- !u!114 &907259842 stripped
+--- !u!114 &907259840
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5441717681498874924, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
-  m_PrefabInstance: {fileID: 1343188495}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907259832}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f86b14a27b52f4f9298c33015b5c26, type: 3}
+  m_Script: {fileID: 11500000, guid: 152cf3c72abc8594eb89f257df3b0367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDirty: 1
+  isInWater: 0
+  cleanProgress: 0
+  requiredCleanProgress: 5
+  dirtyVisual: {fileID: 0}
+  cleanVisual: {fileID: 0}
 --- !u!1001 &908270541
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18873,7 +18880,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5966074755435031372, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
   m_PrefabInstance: {fileID: 1343188495}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684200026}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16e488477ff2ce34981b374f30da10aa, type: 3}
@@ -21012,7 +21019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panWashState: {fileID: 907259839}
-  movementThreshold: 0.001
+  movementThreshold: 0.03
   progressPerScrub: 0.6
   scrubCooldown: 0.15
   showDebugLog: 1
@@ -23812,7 +23819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4179708414054123819, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.027
+      value: 15.074
       objectReference: {fileID: 0}
     - target: {fileID: 4179708414054123819, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23820,7 +23827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4179708414054123819, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.897
+      value: -0.926
       objectReference: {fileID: 0}
     - target: {fileID: 4179708414054123819, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23854,7 +23861,6 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: 40b9a324add8a944b91220c6513f5614, type: 2}
-<<<<<<< HEAD
     - target: {fileID: 5165096692646717624, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       propertyPath: m_Mass
       value: 10
@@ -23863,16 +23869,6 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 1
       objectReference: {fileID: 0}
-=======
-    - target: {fileID: 5966074755435031372, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
-      propertyPath: hasOil
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5966074755435031372, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
-      propertyPath: oilVisual
-      value: 
-      objectReference: {fileID: 1684200026}
->>>>>>> ce4628b33aa7f2e023cef2405c4ef906f700b829
     - target: {fileID: 7429166381659342696, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       propertyPath: m_Material
       value: 
@@ -23928,6 +23924,9 @@ PrefabInstance:
       insertIndex: 6
       addedObject: {fileID: 220332207}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3478030427265396400, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 907259840}
     - targetCorrespondingSourceObject: {fileID: 3478030427265396400, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 907259839}
@@ -30890,11 +30889,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 9.75
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1684200026 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8004380460546520115, guid: 5dd5b17c0d6c31b45b12c5243cb7a25f, type: 3}
-  m_PrefabInstance: {fileID: 1343188495}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1684618326
 PrefabInstance:
   m_ObjectHideFlags: 0
