@@ -63,9 +63,21 @@ public class SparyOil : MonoBehaviour
     protected virtual void OnPanHit(PanHeatReceiver panHeatReceiver, RaycastHit hit)
     {
         panHeatReceiver.HasOil = true;
+
+        OilCheck oilCheck = hit.collider.GetComponentInParent<PanWashState>()?.oilCheck;
+
+        if (oilCheck != null)
+        {
+            oilCheck.AddOil();
+            Debug.Log("OilCheck: oil added.");
+        }
+        else
+        {
+            Debug.LogWarning("OilCheck reference not found through PanWashState.");
+        }
+
         Debug.Log($"Oil successfully applied to: {hit.collider.gameObject.name}");
     }
-
     private void OnDrawGizmos()
     {
         if (rayOriginPoint != null)
